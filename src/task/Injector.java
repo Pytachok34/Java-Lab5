@@ -6,13 +6,28 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.util.Properties;
+/**
+ * Класс инъектор, для инициализаци поле ЛЮБОГО класса
+ * с аннотацией AutoInjectable
+ * с помощью файла .properties
+ */
 public class Injector {
+    /** Имя и путь текущего файла .properties*/
     private String fileName;
 
+    /**
+     * Метод, устанавливающий новое имя файла .properties
+     * @param fileName
+     */
     public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
-
+    /**
+     * Метод, читающий текущий файл .properties
+     * и создающий объект Properties
+     * @throws RuntimeException если имя файла не установлено
+     * @return объект Properties на основе файла
+     */
     public final @NotNull Properties readPropertiesFile() {
         if (fileName.equals("")) {
             throw new RuntimeException("File path must be set");
@@ -31,6 +46,13 @@ public class Injector {
         return properties;
     }
 
+    /**
+     * Метод инициализирующий поля класса, с помощью рефлексии, на основе содержимого .properties
+     * печатающий ошибки в случае возникновения
+     * @param object объект, у коготорого инициализируются поля
+     * @return объект, с инициализированными полями
+     * @param <T> класс, подлежащий инициализации (поля которого AutoInjectable)
+     */
     public <T> T inject(T object) {
         Class<?> objectClass = object.getClass();
 
