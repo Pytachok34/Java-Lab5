@@ -29,7 +29,7 @@ public class Injector {
      * @return объект Properties на основе файла
      */
     public final @NotNull Properties readPropertiesFile() {
-        if (fileName.equals("")) {
+        if (fileName == null) {
             throw new RuntimeException("File path must be set");
         }
 
