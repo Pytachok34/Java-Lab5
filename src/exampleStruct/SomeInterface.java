@@ -1,5 +1,5 @@
 package exampleStruct;
 
-public interface SomeInterface {
-    public void doSomething();
+interface SomeInterface {
+    void doSomething();
 }
